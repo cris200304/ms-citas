@@ -9,6 +9,8 @@ import com.rednorte.ms.citas.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CitaService {
@@ -40,5 +42,48 @@ public class CitaService {
                 .doctorNombre(doctor.getNombre())
                 .especialidad(doctor.getEspecialidad())
                 .build();
+    }
+
+    public List<CitaResponse> listarCitas() {
+
+        return citaRepository.findAll().stream().map(cita ->
+                CitaResponse.builder()
+                        .id(cita.getId())
+                        .paciente(cita.getPaciente())
+                        .fecha(cita.getFecha())
+                        .hora(cita.getHora())
+                        .estado(cita.getEstado())
+                        .doctorNombre(cita.getDoctor().getNombre())
+                        .especialidad(cita.getDoctor().getEspecialidad())
+                        .build()
+        ).toList();
+    }
+
+    public CitaResponse actualizarEstado(Long id, String estado) {
+
+        Cita cita = citaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cita no encontrada"));
+
+        cita.setEstado(estado);
+
+        Cita citaActualizada = citaRepository.save(cita);
+
+        return CitaResponse.builder()
+                .id(citaActualizada.getId())
+                .paciente(citaActualizada.getPaciente())
+                .fecha(citaActualizada.getFecha())
+                .hora(citaActualizada.getHora())
+                .estado(citaActualizada.getEstado())
+                .doctorNombre(citaActualizada.getDoctor().getNombre())
+                .especialidad(citaActualizada.getDoctor().getEspecialidad())
+                .build();
+    }
+
+    public void eliminarCita(Long id) {
+
+        Cita cita = citaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cita no encontrada"));
+
+        citaRepository.delete(cita);
     }
 }
