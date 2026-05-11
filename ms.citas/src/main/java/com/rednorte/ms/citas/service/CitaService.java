@@ -9,6 +9,8 @@ import com.rednorte.ms.citas.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CitaService {
@@ -40,5 +42,22 @@ public class CitaService {
                 .doctorNombre(doctor.getNombre())
                 .especialidad(doctor.getEspecialidad())
                 .build();
+    }
+
+    public List<CitaResponse> listarCitas() {
+
+        return citaRepository.findAll().stream().map(cita ->
+
+                CitaResponse.builder()
+                        .id(cita.getId())
+                        .paciente(cita.getPaciente())
+                        .fecha(cita.getFecha())
+                        .hora(cita.getHora())
+                        .estado(cita.getEstado())
+                        .doctorNombre(cita.getDoctor().getNombre())
+                        .especialidad(cita.getDoctor().getEspecialidad())
+                        .build()
+
+        ).toList();
     }
 }
