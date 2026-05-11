@@ -41,4 +41,20 @@ public class CitaService {
                 .especialidad(doctor.getEspecialidad())
                 .build();
     }
+    public CitaResponse buscarCitaPorId(Long id) {
+
+        Cita cita = citaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cita no encontrada"));
+
+        return CitaResponse.builder()
+                .id(cita.getId())
+                .paciente(cita.getPaciente())
+                .fecha(cita.getFecha())
+                .hora(cita.getHora())
+                .estado(cita.getEstado())
+                .doctorNombre(cita.getDoctor().getNombre())
+                .especialidad(cita.getDoctor().getEspecialidad())
+                .build();
+    }
+
 }
