@@ -21,6 +21,16 @@ public class CitaService {
         Doctor doctor = doctorRepository.findById(request.getDoctorId())
                 .orElseThrow(() -> new RuntimeException("Doctor no encontrado"));
 
+        boolean horarioOcupado = citaRepository.existsByDoctorIdAndFechaAndHora(
+                doctor.getId(),
+                request.getFecha(),
+                request.getHora()
+        );
+
+        if (horarioOcupado) {
+            throw new RuntimeException("El doctor ya tiene una cita en ese horario");
+        }
+
         Cita cita = Cita.builder()
                 .paciente(request.getPaciente())
                 .fecha(request.getFecha())
