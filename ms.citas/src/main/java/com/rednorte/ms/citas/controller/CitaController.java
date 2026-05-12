@@ -17,4 +17,8 @@ public class CitaController {
     public CitaResponse crearCita(@RequestBody CitaRequest request) {
         return citaService.crearCita(request);
     }
+    @GetMapping("/{id}")
+    public CitaResponse buscarCitaPorId(@PathVariable Long id) {
+        return citaService.buscarCitaPorId(id);
+    }
 }
