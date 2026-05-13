@@ -2,8 +2,6 @@ package com.rednorte.ms.citas.service;
 
 import com.rednorte.ms.citas.dto.CitaRequest;
 import com.rednorte.ms.citas.dto.CitaResponse;
-import com.rednorte.ms.citas.exception.CitaDuplicadaException;
-import com.rednorte.ms.citas.exception.DoctorNoEncontradoException;
 import com.rednorte.ms.citas.model.Cita;
 import com.rednorte.ms.citas.model.Doctor;
 import com.rednorte.ms.citas.repository.CitaRepository;
@@ -21,17 +19,7 @@ public class CitaService {
     public CitaResponse crearCita(CitaRequest request) {
 
         Doctor doctor = doctorRepository.findById(request.getDoctorId())
-                .orElseThrow(() -> new DoctorNoEncontradoException("Doctor no encontrado"));
-
-        boolean existeCita = citaRepository.existsByDoctorIdAndFechaAndHora(
-                request.getDoctorId(),
-                request.getFecha(),
-                request.getHora()
-        );
-
-        if (existeCita) {
-            throw new CitaDuplicadaException("El doctor ya tiene una cita en ese horario");
-        }
+                .orElseThrow(() -> new RuntimeException("Doctor no encontrado"));
 
         Cita cita = Cita.builder()
                 .paciente(request.getPaciente())
