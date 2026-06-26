@@ -5,9 +5,41 @@ function ConsultaCitaRut() {
     const [rut, setRut] = useState("");
     const [citas, setCitas] = useState([]);
     const [mensaje, setMensaje] = useState("");
+    const validarRut = (rut) => {
+        const rutLimpio = rut.replace(/\./g, "").replace("-", "");
+
+        if (!/^[0-9]{7,8}[0-9kK]$/.test(rutLimpio)) {
+            return false;
+        }
+
+        let cuerpo = rutLimpio.slice(0, -1);
+        let dv = rutLimpio.slice(-1).toUpperCase();
+
+        let suma = 0;
+        let multiplo = 2;
+
+        for (let i = cuerpo.length - 1; i >= 0; i--) {
+            suma += parseInt(cuerpo.charAt(i)) * multiplo;
+            multiplo = multiplo === 7 ? 2 : multiplo + 1;
+        }
+
+        const resto = 11 - (suma % 11);
+
+        let dvEsperado;
+
+        if (resto === 11) dvEsperado = "0";
+        else if (resto === 10) dvEsperado = "K";
+        else dvEsperado = resto.toString();
+
+        return dv === dvEsperado;
+    };
 
     const buscarCitas = async (e) => {
         e.preventDefault();
+        if (!validarRut(rut)) {
+            setMensaje("❌ Ingrese un RUT válido.");
+            return;
+        }
 
         try {
             const response = await axios.get(
