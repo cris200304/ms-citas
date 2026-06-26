@@ -1,0 +1,241 @@
+/* ==========================================
+   APP PRINCIPAL - RED NORTE SALUD
+========================================== */
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(
+          135deg,
+          #e0f2fe 0%,
+          #f8fafc 50%,
+          #dbeafe 100%
+  );
+  min-height: 100vh;
+}
+
+/* ==========================================
+   CONTENEDOR PRINCIPAL
+========================================== */
+
+.container {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.app-header {
+  background: linear-gradient(
+          135deg,
+          #0f172a,
+          #1e3a8a
+  );
+
+  border-radius: 25px;
+  padding: 35px;
+
+  text-align: center;
+  color: white;
+
+  margin-bottom: 25px;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,.18);
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: white;
+}
+
+.app-header p {
+  margin-top: 12px;
+  color: #dbeafe;
+  font-size: 1.1rem;
+}
+
+/* ==========================================
+   PANEL PRINCIPAL
+========================================== */
+
+.panel-contenido {
+  background: rgba(255,255,255,.88);
+  backdrop-filter: blur(12px);
+
+  border-radius: 25px;
+  padding: 30px;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,.08);
+}
+
+/* ==========================================
+   BOTÓN VOLVER
+========================================== */
+
+.volver {
+  background: #2563eb;
+  color: white;
+
+  border: none;
+  border-radius: 14px;
+
+  padding: 12px 20px;
+  margin-bottom: 25px;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+.volver:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   CARGANDO
+========================================== */
+
+.cargando {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+
+  color: #1e3a8a;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* ==========================================
+   TARJETAS GENERALES
+========================================== */
+
+.card {
+  background: white;
+  border-radius: 20px;
+
+  padding: 25px;
+  margin-top: 20px;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+/* ==========================================
+   TÍTULOS GENERALES
+========================================== */
+
+h2 {
+  color: #0f172a;
+  margin-bottom: 20px;
+}
+
+h3 {
+  color: #1e3a8a;
+}
+
+/* ==========================================
+   INPUTS GENERALES
+========================================== */
+
+input,
+select {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #d6d6d6;
+
+  outline: none;
+  transition: .3s;
+}
+
+input:focus,
+select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+}
+
+/* ==========================================
+   BOTONES GENERALES
+========================================== */
+
+button {
+  border: none;
+  border-radius: 12px;
+
+  padding: 12px 18px;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   MENSAJES
+========================================== */
+
+.success {
+  color: #15803d;
+  font-weight: bold;
+}
+
+.error {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+/* ==========================================
+   SCROLL PERSONALIZADO
+========================================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .container {
+    padding: 15px;
+  }
+
+  .app-header {
+    padding: 25px;
+  }
+
+  .app-header h1 {
+    font-size: 1.9rem;
+  }
+
+  .app-header p {
+    font-size: 1rem;
+  }
+
+  .panel-contenido {
+    padding: 20px;
+  }
+}
