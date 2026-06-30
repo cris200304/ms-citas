@@ -1,0 +1,80 @@
+services:
+
+  ms-pacientes:
+    build:
+      context: ../ms.citas/ms-pacientes
+    container_name: ms-pacientes
+    ports:
+      - "8081:8081"
+    environment:
+      SERVER_PORT: 8081
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/db_pacientes
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 200304
+
+  ms-listas-espera:
+    build:
+      context: ../ms-listas-espera
+    container_name: ms-listas-espera
+    ports:
+      - "8082:8082"
+    environment:
+      SERVER_PORT: 8082
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/db_listas_espera
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 200304
+
+  ms-citas:
+    build:
+      context: ../ms.citas
+    container_name: ms-citas
+    ports:
+      - "8083:8083"
+    environment:
+      SERVER_PORT: 8083
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/db_citas
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 200304
+
+  ms-reasignacion:
+    build:
+      context: ../ms-reasignacion
+    container_name: ms-reasignacion
+    ports:
+      - "8084:8084"
+    environment:
+      SERVER_PORT: 8084
+      MS_LISTAS_ESPERA_URL: http://ms-listas-espera:8082
+      MS_CITAS_URL: http://ms-citas:8083
+    depends_on:
+      - ms-listas-espera
+      - ms-citas
+
+  ms-notificaciones:
+    build:
+      context: ../ms-notificaciones
+    container_name: ms-notificaciones
+    ports:
+      - "8085:8085"
+    environment:
+      SERVER_PORT: 8085
+
+  bff-gateway:
+    build:
+      context: ../bff-gateway
+    container_name: bff-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_PORT: 8080
+      MS_PACIENTES_URL: http://ms-pacientes:8081
+      MS_LISTAS_ESPERA_URL: http://ms-listas-espera:8082
+      MS_CITAS_URL: http://ms-citas:8083
+      MS_REASIGNACION_URL: http://ms-reasignacion:8084
+      MS_NOTIFICACIONES_URL: http://ms-notificaciones:8085
+    depends_on:
+      - ms-pacientes
+      - ms-listas-espera
+      - ms-citas
+      - ms-reasignacion
+      - ms-notificaciones

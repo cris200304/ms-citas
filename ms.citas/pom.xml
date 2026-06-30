@@ -37,6 +37,12 @@
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
 
+		<!-- Envío de correos -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
 		<!-- Driver PostgreSQL -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -85,7 +91,6 @@
 						</exclude>
 					</excludes>
 				</configuration>
-
 			</plugin>
 
 			<plugin>
@@ -93,11 +98,9 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 
 				<executions>
-
 					<execution>
 						<id>default-compile</id>
 						<phase>compile</phase>
-
 						<goals>
 							<goal>compile</goal>
 						</goals>
@@ -110,13 +113,11 @@
 								</path>
 							</annotationProcessorPaths>
 						</configuration>
-
 					</execution>
 
 					<execution>
 						<id>default-testCompile</id>
 						<phase>test-compile</phase>
-
 						<goals>
 							<goal>testCompile</goal>
 						</goals>
@@ -129,11 +130,8 @@
 								</path>
 							</annotationProcessorPaths>
 						</configuration>
-
 					</execution>
-
 				</executions>
-
 			</plugin>
 
 			<plugin>
@@ -142,7 +140,6 @@
 				<version>0.8.14</version>
 
 				<executions>
-
 					<execution>
 						<goals>
 							<goal>prepare-agent</goal>
@@ -152,15 +149,11 @@
 					<execution>
 						<id>report</id>
 						<phase>test</phase>
-
 						<goals>
 							<goal>report</goal>
 						</goals>
-
 					</execution>
-
 				</executions>
-
 			</plugin>
 
 		</plugins>

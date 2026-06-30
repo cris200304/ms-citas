@@ -1,5 +1,8 @@
 package com.rednorte.ms.citas.model;
 
+import com.rednorte.ms.citas.enums.EstadoCita;
+import com.rednorte.ms.citas.enums.PrioridadCita;
+import com.rednorte.ms.citas.enums.TipoAtencion;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,13 +24,30 @@ public class Cita {
 
     private String paciente;
 
+    private String rut;
+
+    private String telefono;
+
+    private String correo;
+
     private LocalDate fecha;
 
     private LocalTime hora;
 
-    private String estado;
+    @Enumerated(EnumType.STRING)
+    private EstadoCita estado;
+
+    @Enumerated(EnumType.STRING)
+    private TipoAtencion tipo;
+
+    @Enumerated(EnumType.STRING)
+    private PrioridadCita prioridad;
 
     @ManyToOne
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
+
+    @ManyToOne
+    @JoinColumn(name = "profesion_id")
+    private Profesion profesion;
 }

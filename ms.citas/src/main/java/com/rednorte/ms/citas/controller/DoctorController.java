@@ -19,4 +19,12 @@ public class DoctorController {
     public List<Doctor> listarDoctores() {
         return doctorRepository.findAll();
     }
+
+    @GetMapping("/rut/{rut}")
+    public Doctor buscarPorRut(@PathVariable String rut) {
+
+        return doctorRepository.findByRut(rut)
+                .orElseThrow(() ->
+                        new RuntimeException("Profesional no encontrado"));
+    }
 }

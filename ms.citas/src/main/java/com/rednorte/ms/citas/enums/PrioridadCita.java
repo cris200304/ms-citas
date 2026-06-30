@@ -1,4 +1,8 @@
 package com.rednorte.ms.citas.enums;
 
-public class PrioridadCita {
+public enum PrioridadCita {
+    BAJA,
+    MEDIA,
+    ALTA,
+    URGENTE
 }
