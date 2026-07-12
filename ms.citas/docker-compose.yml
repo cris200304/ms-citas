@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  mysql-citas:
+    image: mysql:8.0
+    container_name: mysql-citas
+    restart: always
+    environment:
+      MYSQL_DATABASE: db_citas
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_citas_data:/var/lib/mysql
+
+  ms-citas:
+    build: .
+    container_name: ms-citas
+    restart: always
+    depends_on:
+      - mysql-citas
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-citas:3306/db_citas
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+
+volumes:
+  mysql_citas_data:
